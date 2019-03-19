@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+        <record id="account_bank_statement_importit_form" model="ir.ui.view">
+            <field name="name">account.bank.statement.import.it.form</field>
+            <field name="model">account.bank.statement.import.it</field>
+            <field name="arch" type="xml">
+                <form string="Archivo" version="7.0" create="0" delete="0">
+                    <div >
+                        <h2>Importar Lineas</h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="output_name" invisible="1"/>
+                            <field name="csv" required="1" filename="output_name"/>
+                            <field name="separador" required="1"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <footer>                        
+                            <button string="Importar" name="importar" type="object" class="oe_highlight"/>
+                            or
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="view_bank_statement_form" model="ir.ui.view">
+            <field name="name">account.bank.statement.form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <button name="button_cancel" position="after">
+                    <button name="importar_lineas" states="open" string="Importar Lineas" type="object"/>
+                </button>
+                <field name="ref" position="after">
+                  <field name="medio_pago" attrs="{'readonly': [('journal_entry_ids', '!=', [])]}" />
+                </field>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <menuitem id="menu_banco_caja" name="Banco y Caja"
+                  parent="account.menu_finance" />
+
+
+        <menuitem id="menu_action_bank_statement_tree_it" name="Extracto Bancario"
+                  parent="menu_banco_caja"
+                  action="account.action_bank_statement_tree"/>
+
+        <menuitem id="menu_action_view_bank_statement_tree_it" name="Caja Chica"
+                  parent="menu_banco_caja"
+                  action="account.action_view_bank_statement_tree"/>
+
+
+	</data>
+</openerp>
